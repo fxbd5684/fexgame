@@ -42,7 +42,9 @@ class Developer(cmd.Cmd):
     def __init__(self):
         super().__init__()
         self.prompt = "developer> "
-        self.intro = "请注意,这是开发者模式!\n你的每一次操作都可能会影响游戏体验\n请谨慎使用"
+        self.intro = (
+            "请注意,这是开发者模式!\n你的每一次操作都可能会影响游戏体验\n请谨慎使用"
+        )
         self.password_is_true = False
 
     def do_password(self, password):
@@ -126,22 +128,20 @@ class Developer(cmd.Cmd):
             return
 
         what, value = args
-        if what == "exp":
-            try:
-                value = int(value)  # 尝试将 value 转换为整数
-                if value < 0:
-                    print("value 参数不能为负数")
-                    return
-            except ValueError:
-                print("value 参数必须为整数")
-                return
 
+        try:
+            value = float(value)  # 尝试将 value 转换为浮点数
             userobj = ucf.read_user_from_db()
-            userobj.exp = value
+            userobj.__setattr__(what, value)
             ucf.write_user_to_db(userobj)
             print("设置成功")
-        else:
+
+        except ValueError:
+            print("value 参数必须为浮点数")
+            return
+        except AttributeError:
             print("不支持的属性")
+            return
 
     def do_exit(self, arg):
         """

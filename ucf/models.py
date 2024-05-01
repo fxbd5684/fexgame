@@ -17,11 +17,13 @@ class User:
     密码
     金币
     经验值
+    生命值
     攻击力
     防御率
-    生命值
+    暴击率
     技能{火系：攻击力，水系：攻击力，木系：攻击力，体术：攻击力}
     装备[装备名称，...]
+    战斗积分
     """
 
     name: str
@@ -31,8 +33,10 @@ class User:
     hp: int
     attack: int
     defense: float
+    crit_rate: float
     skills: dict
     equipments: list
+    battle_points: int
 
 
 default_user = User(
@@ -43,8 +47,10 @@ default_user = User(
     hp=20,
     attack=10,
     defense=1.0,
+    crit_rate=0.01,
     skills={"fire": 10, "water": 10, "wood": 10, "body": 10},
     equipments=[],
+    battle_points=0,
 )
 
 if __name__ == "__main__":

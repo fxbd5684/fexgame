@@ -40,11 +40,13 @@ ___________________________________________________
     你的有 {info.exp} 点经验值
     你现在是 {math_floor(level)} 级
     你的战斗力为 {combat_power}
-    
+    你的战斗积分有 {info.battle_points} 分
+
     你的各项属性如下：
         生命值：{info.hp}
         攻击力：{info.attack}
         防御力：{info.defense}
+        暴击率：{info.crit_rate*100}%
     
     技能攻击力如下：
         水系技能： {info.skills['water']}

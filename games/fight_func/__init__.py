@@ -65,6 +65,7 @@ def 生成敌人(userobj: User, names_list: list = ["fexAI陪练"]):
     enemy_obj.hp = 根据百分比上下浮动(userobj.hp, 10)
     enemy_obj.attack = 根据百分比上下浮动(userobj.attack, 10)
     enemy_obj.defense = 根据百分比上下浮动(userobj.defense, 10)
+    enemy_obj.crit_rate = userobj.crit_rate
     enemy_obj.skills = {
         "fire": 根据百分比上下浮动(userobj.skills["fire"], 10),
         "water": 根据百分比上下浮动(userobj.skills["water"], 10),
@@ -98,6 +99,26 @@ def 计算对手受到的伤害(
     return 最终伤害
 
 
+def 根据暴击率计算暴击伤害(
+    基础伤害: int,  # 基础伤害
+    暴击率: float,  # 暴击率
+    alpha: float = 1.5,  # 暴击伤害是原伤害的百分比
+) -> float:
+    """
+    根据暴击率计算暴击伤害
+    """
+    暴击值 = round(暴击率 * 100)
+
+    k = random.randint(1, 100)
+    if k <= int(暴击值):
+        print("暴击！")
+        return float(基础伤害 * alpha)
+
+    return float(基础伤害)
+
+
 if __name__ == "__main__":
     # 计算对手受到的伤害(100, 50)
+    # while 1:
+    #     print(根据暴击率计算暴击伤害(100, 0.01))
     pass
