@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.fexdb
+.idea/
+build/
+dist/
+*.spec
+*.pyc
+
+
