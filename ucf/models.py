@@ -1,4 +1,3 @@
-# 我要导入fexdb
 import sys
 
 sys.path.append("..")

@@ -6,5 +6,7 @@ build/
 dist/
 *.spec
 *.pyc
+.vscode/
+tempCodeRunnerFile.py
 
 
