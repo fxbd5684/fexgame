@@ -8,7 +8,7 @@ from math import floor as math_floor
 
 def main():
     info = ucf.read_user_from_db()
-
+ 
     level = math_log(int(info.exp + 1), 1.2)
     combat_power = math_floor(
         (
