@@ -44,13 +44,15 @@ def 根据值上下浮动(value: int, scope: int, more_than_0: bool = True):
     return random.randint(round(value - scope), round(value + scope))
 
 
-def 根据百分比上下浮动(value: int, percent: int, more_than_0: bool = True):
+def 根据百分比上下浮动(value: int, percent: int, max_alpha=2, more_than_0: bool = True):
     """
     上下浮动百分比
     """
     scpoe = int(value * percent / 100)
     if more_than_0:
-        returns_value = random.randint(round(value - scpoe), round(value + scpoe))
+        returns_value = random.randint(
+            round(value - scpoe), round(value + scpoe // max_alpha)
+        )
         return returns_value if returns_value > 0 else 1
     return 根据值上下浮动(round(value - scpoe), round(value + scpoe))
 

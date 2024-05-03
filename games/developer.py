@@ -49,7 +49,7 @@ class Developer(cmd.Cmd):
 
     def do_password(self, password):
         """
-        输入密码
+        输入密码才可以使用开发者模式
         """
         if encrypt_password(password) == "a9cdf1f4031f63077c1ee90c79376abed7af4e20":
             os.system("cls")
@@ -57,43 +57,6 @@ class Developer(cmd.Cmd):
             self.password_is_true = True
         else:
             print("密码错误")
-
-    def do_add(self, arg):
-        """
-        添加属性
-
-        示例: add exp 10
-
-        注意,有更好的方法
-        """
-        if not self.password_is_true:
-            print("请先输入正确的密码")
-            return
-
-        args = arg.split()  # 将参数分隔成列表
-        if len(args) != 2:
-            print("参数错误")
-            return
-
-        what, how_many = args
-        try:
-            how_many = int(how_many)  # 尝试将 how_many 转换为整数
-            if how_many < 0:
-                print("how_many 参数不能为负数")
-                return
-        except ValueError:
-            print("how_many 参数必须为整数")
-            return
-
-        if what == "exp":
-            toolbox = AddSomeThingToolBox()
-            result = toolbox.add_exp(how_many)  # 调用方法并获取结果
-            if result:
-                print("添加成功")
-            else:
-                print("添加失败")
-        else:
-            print("不支持的属性")
 
     def do_resetinfo(self, arg):
         """
