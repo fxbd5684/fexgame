@@ -52,18 +52,18 @@ ______________________________________________
 
 
 def 战斗主循环(enemyobj: User):
-    temp_enemy_model = deepcopy(enemyobj)
-    temp_user_model: User = deepcopy(read_user_from_db())
+    对手的 = deepcopy(enemyobj)
+    用户的: User = deepcopy(read_user_from_db())
 
-    is_player_turn = False
+    is_player_turn = randint(0, 1) == 0  # 0为玩家先手，1为敌人先手
 
     while True:
         os.system("cls" if os.name == "nt" else "clear")
         if is_player_turn:
             print(
                 f"""
-                      你的血量:{ceil(temp_user_model.hp)}
-                      敌人的血量:{ceil(temp_enemy_model.hp)}
+                      你的血量:{ceil(用户的.hp)}
+                      敌人的血量:{ceil(对手的.hp)}
                 __________________________
                 |    请选择你的技能:      |
                 ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
@@ -80,24 +80,38 @@ def 战斗主循环(enemyobj: User):
             if skill_name == "无效技能":
                 input("没有这个选项")
                 continue
-            print(f"你使用了{skill_name}技能")
-            attack_value = 根据技能和基础攻击力_返回攻击值(skill_name, temp_user_model)
+            print(f"\n你使用了{skill_name}技能")
+            attack_value = 根据技能和基础攻击力_返回攻击值(skill_name, 用户的)
             伤害 = 根据暴击率计算暴击伤害(
-                计算对手受到的伤害(attack_value, temp_enemy_model.defense),
-                temp_user_model.crit_rate,
+                计算对手受到的伤害(attack_value, 对手的.defense),
+                用户的.crit_rate,
             )
-            input(f"你攻击了{temp_enemy_model.name}，造成了{round(伤害, 2)}点伤害")
-            temp_enemy_model.hp -= 伤害
+            input(f"攻击了{对手的.name}，造成了{round(伤害, 2)}点伤害")
+            对手的.hp -= 伤害
 
-            if temp_enemy_model.hp <= 0:
-                # 赢了!!!
-                print(f"{temp_enemy_model.name}被你击败了！")
+            if 对手的.hp <= 0:
                 userobj = read_user_from_db()
                 userobj.battle_points += 获取战力(enemyobj)
                 write_user_to_db(userobj)
+                # 赢了!!!
+                print(
+                    f"""
+ __          __  _____   _   _   _   _   _ 
+ \ \        / / |_   _| | \ | | | | | | | |
+  \ \  /\  / /    | |   |  \| | | | | | | |
+   \ \/  \/ /     | |   | . ` | | | | | | |
+    \  /\  /     _| |_  | |\  | |_| |_| |_|
+     \/  \/     |_____| |_| \_| (_) (_) (_)
+
+
+            {对手的.name}被你击败了！
+
+"""
+                )
+
                 break
 
-            print(f"{temp_enemy_model.name}的血量:{temp_enemy_model.hp}")
+
             is_player_turn = not is_player_turn  # 切换攻击方
         else:
             print("敌人回合\n\n")
@@ -106,28 +120,41 @@ def 战斗主循环(enemyobj: User):
             if skill_name == "无效技能":
                 input("没有这个选项")
                 continue
-            print(f"{temp_enemy_model.name}使用了{skill_name}技能")
-            attack_value = 根据技能和基础攻击力_返回攻击值(skill_name, temp_user_model)
-            伤害 = 根据暴击率计算暴击伤害(
-                计算对手受到的伤害(attack_value, temp_enemy_model.defense),
-                temp_enemy_model.crit_rate,
-            )
-            input(f"{temp_enemy_model.name}攻击了你，造成了{round(伤害, 2)}点伤害")
-            temp_user_model.hp -= 伤害
+            print(f"\n{对手的.name}使用了{skill_name}技能")
+            attack_value = 根据技能和基础攻击力_返回攻击值(skill_name, 对手的)
 
-            if temp_user_model.hp <= 0:
+            伤害 = 根据暴击率计算暴击伤害(
+                计算对手受到的伤害(attack_value, 用户的.defense),
+                对手的.crit_rate,
+            )
+
+            input(f"{对手的.name}攻击了你，造成了{round(伤害, 2)}点伤害")
+            用户的.hp -= 伤害
+
+            if 用户的.hp <= 0:
                 # 输了!!!
-                print(f"{temp_enemy_model.name}把你击败了！")
+                input(
+                    f"""
+  ______        _____  _       ______  _____  
+ |  ____| /\    |_   _|| |     |  ____||  __ \ 
+ | |__   /  \     | |  | |     | |__   | |  | |
+ |  __| / /\ \    | |  | |     |  __|  | |  | |
+ | |   / ____ \  _| |_ | |____ | |____ | |__| |
+ |_|  /_/    \_\|_____||______||______||_____/ 
+
+            {对手的.name}把你击败了！
+
+"""
+                )
                 userobj = read_user_from_db()
                 userobj.battle_points -= 获取战力(enemyobj)
                 write_user_to_db(userobj)
                 break
 
-            print(f"{temp_enemy_model.name}的血量:{temp_enemy_model.hp}")
             is_player_turn = not is_player_turn  # 切换攻击方
 
-    del temp_enemy_model
-    del temp_user_model
+    del 对手的
+    del 用户的
 
 
 if __name__ == "__main__":

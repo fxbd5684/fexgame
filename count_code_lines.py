@@ -17,15 +17,18 @@ def count_code_lines(path):
                     line_count = len(lines)
                     counts[file_path] = line_count
                     all_code_lines += line_count
-    return all_code_lines, counts
+    
+    # 按照代码行数多少排序
+    sorted_counts = dict(sorted(counts.items(), key=lambda item: item[1], reverse=True))
+    return all_code_lines, sorted_counts
 
 
 if __name__ == '__main__':
     # 统计当前目录下的代码行数
     current_dir = os.getcwd()
-    code_lines, counts = count_code_lines(current_dir)
+    code_lines, sorted_counts = count_code_lines(current_dir)
 
     print('当前目录下的代码行数：', code_lines)
     print('\n文件路径\t\t\t代码行数')
-    for file_path, line_count in counts.items():
+    for file_path, line_count in sorted_counts.items():
         print(f'{file_path.ljust(30)}|\t{line_count}')
