@@ -8,5 +8,5 @@ dist/
 *.pyc
 .vscode/
 tempCodeRunnerFile.py
-
-
+pack.bat
+t/
