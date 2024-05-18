@@ -33,14 +33,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build-on-linux, build-on-windows]
     steps:
-      - name: commit
-        run: |
-          git config --global user.email 2734664632@qq.com
-          git config --global user.name fxbd5684
-          git add .
-          git commit -m "update" -a
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: build
