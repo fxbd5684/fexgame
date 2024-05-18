@@ -57,7 +57,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           release_name: 新版本 ${{ github.ref }}
-          tag_name: ${{ 'v0.1.0-' + github.run_number }}# 在这里添加 tag_name 参数
+          tag_name: ${{ github.sha }}
           draft: false
           prerelease: false
 
