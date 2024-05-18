@@ -15,7 +15,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: 3.10
+        python-version: 3.11
         
     - name: Install dependencies
       run: |
@@ -29,8 +29,8 @@ jobs:
         
     - name: Commit packaged files
       run: |
-        git config --global user.name "GitHub Actions Bot"
-        git config --global user.email "<>"
+        git config --global user.name "fxbd5684"
+        git config --global user.email "2734664632@qq.com"
         git checkout -b build
         git add dist
         git commit -m "Add packaged files to build branch"
