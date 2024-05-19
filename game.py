@@ -1,12 +1,22 @@
 import ucf
 import os
-from games import userinfo, contest, exercise, dungeon, progress, shop, developer
+from games import (
+    userinfo,
+    contest,
+    exercise,
+    dungeon,
+    progress,
+    shop,
+    developer,
+    settings,
+)
+from tools import return_menu
 
 
 def main():
     while 1:
         os.system("cls" if os.name == "nt" else "clear")
-        choice = input(
+        print(
             r"""
   ______            _____                         
  |  ____|          / ____|                        
@@ -15,17 +25,20 @@ def main():
  | |  |  __/ >  < | |__| || (_| || | | | | ||  __/
  |_|   \___|/_/\_\ \_____| \__,_||_| |_| |_| \___|
  
-     ________________________________
-     |          1. 信息              |
-     |          2. 战斗              |
-     |          3. 锻炼              |
-     |          4. 副本              |
-     |          5. 提升              |
-     |          6. 商店              | 
-     |          7. 退出              |
-     ‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾
->>> """
+"""
         )
+        menu = [
+            "1. 信息",
+            "2. 战斗",
+            "3. 锻炼",
+            "4. 副本",
+            "5. 提升",
+            "6. 商店",
+            "7. 设置",
+            "8. 退出",
+        ]
+        print(return_menu(menu,wight=20))
+        choice = input('>>> ')
         match choice:
             case "1":
                 os.system("cls" if os.name == "nt" else "clear")
@@ -45,8 +58,11 @@ def main():
             case "6":
                 os.system("cls" if os.name == "nt" else "clear")
                 shop.main()
-            case "7":
+            case "8":
                 exit()
+            case "7":
+                os.system("cls" if os.name == "nt" else "clear")
+                settings.main()
             case "developer":
                 developer.main()
             case _:
