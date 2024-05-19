@@ -1,4 +1,5 @@
 @echo off
-pyinstaller -D --icon=fex.ico --clean --distpath dist\ main.py 
+pip install pyinstaller
+pyinstaller -D --icon=someotherthing/fex.ico --clean --distpath dist\windows main.py 
 rmdir /s /q build
 del main.spec
